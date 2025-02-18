@@ -1,0 +1,11 @@
+# Node
+node_modules/
+.env
+
+# 日志
+logs/
+*.log
+
+# 调试文件
+*.cpuprofile
+*.heapsnapshot
