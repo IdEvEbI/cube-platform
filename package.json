@@ -1,0 +1,14 @@
+{
+  "name": "cube-platform",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:IdEvEbI/cube-platform.git",
+  "author": "IdevebI <idevebi@163.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": ["frontend", "backend", "docs"],
+  "scripts": {
+    "dev:frontend": "yarn workspace frontend dev",
+    "dev:backend": "yarn workspace backend dev"
+  }
+}
