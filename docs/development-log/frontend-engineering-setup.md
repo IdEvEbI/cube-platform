@@ -213,7 +213,3 @@
 - [ ] 运行 `yarn lint`（在 `frontend` 目录），无 ESLint 错误。
 - [ ] 运行 `yarn test`（在 `frontend` 目录），测试通过并生成 `frontend/coverage/` 报告。
 - [ ] 运行 `yarn test:e2e`（需先启动 `yarn dev`），E2E 测试通过。
-
-## 英文文档名称
-
-frontend-engineering-setup
