@@ -1,0 +1,16 @@
+{
+  "name": "cube-platform",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["frontend", "backend", "docs"],
+  "scripts": {
+    "dev:frontend": "yarn workspace frontend dev",
+    "dev:backend": "yarn workspace backend dev",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .js,.mjs,.vue",
+    "test": "yarn workspaces run test"
+  },
+  "repository": "git@github.com:IdEvEbI/cube-platform.git",
+  "author": "IdevebI <idevebi@163.com>",
+  "license": "MIT"
+}
