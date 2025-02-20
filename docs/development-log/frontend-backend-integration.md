@@ -151,7 +151,3 @@
 - [ ] 运行前端 `yarn dev`（在 `frontend` 目录），访问 `http://localhost:5173` 显示 “Backend Status: ok”。
 - [ ] 运行 `yarn format` 和 `yarn lint`（在 `frontend` 和 `backend` 目录），无报错。
 - [ ] 提交推送至 `dev` 分支，GitHub 上可见更新。
-
-## 英文文档名称
-
-frontend-backend-integration

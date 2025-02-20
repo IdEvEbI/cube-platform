@@ -12,6 +12,7 @@
 2. [前端工程配置](./development-log/frontend-engineering-setup.md)
 3. [后端工程配置](./development-log/backend-engineering-setup.md)
 4. [前后端联调配置](./development-log/frontend-backend-integration.md)
+5. [Docker 配置](./development-log/docker-setup.md)
 
 ## 参考文档
 
