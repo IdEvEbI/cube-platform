@@ -9,6 +9,7 @@
 ### 1. 项目初始化与环境配置
 
 1. [开发环境与仓库配置](./development-log/setup-development-environment-and-repo.md)
+2. [前端工程配置](./development-log/frontend-engineering-setup.md)
 
 ## 参考文档
 
