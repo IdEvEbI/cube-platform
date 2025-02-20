@@ -224,7 +224,3 @@ VitePress 是现代化文档工具，基于 Vite 和 Vue，支持 Markdown 编�
 - [ ] GitHub 仓库和 Projects 创建完成。
 - [ ] 本地 `dev` 分支推送成功，`.gitignore` 生效。
 - [ ] 运行 `yarn workspace docs dev`，访问 `http://localhost:5173`，确认文档首页和链接可访问。
-
-## 英文文档名称
-
-setup-development-environment-and-repo
