@@ -60,7 +60,7 @@
   ```bash
   echo "import vuePlugin from 'eslint-plugin-vue';
   import vueParser from 'vue-eslint-parser';
-  
+
   export default [
     {
       files: ['**/*.js', '**/*.vue'],
@@ -89,7 +89,7 @@
     "trailingComma": "es5"
   }' > .prettierrc
   ```
-  
+
   > **说明**：设置基础格式化规则，与 ESLint 无冲突。
 
 ## 步骤 3：配置测试环境

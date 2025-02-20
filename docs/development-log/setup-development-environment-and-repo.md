@@ -53,6 +53,7 @@ GitHub 提供版本控制和 **Projects** 看板，追踪开发进度。
   - 描述：`A full-stack Rubik's Cube learning platform with 3D visualization`
   - 选项：公开，添加 **MIT License**，不初始化 `.gitignore`（后续手动配置）。
 - 配置 Projects：
+
   - 创建 **Kanban** 项目：`Cube Platform Development`。
   - 添加列：`Backlog`、`Todo`、`In Progress`、`In Review`、`Done`。
   - 初始化任务（标签 `Phase1`、`Infra`）：
@@ -154,21 +155,21 @@ VitePress 是现代化文档工具，基于 Vite 和 Vue，支持 Markdown 编�
 
     ```bash
     echo '# 魔方学习平台文档
-    
+
     ## 产品文档
-    
+
     1. [魔方学习平台产品需求文档（PRD）](./cube-platform-product-requirements.md)
-    
+
     ## 开发日志
-    
+
     ### 1. 项目初始化与环境配置
-    
+
     1. [开发环境与仓库配置](./development-log/setup-development-environment-and-repo.md)
-    
+
     ## 参考文档
-    
+
     1. [Markdown 文档编写指南](./markdown-doc-guide.md)' > index.md
-    
+
     echo "module.exports = {
       title: '魔方学习平台',
       description: '魔方学习平台文档',

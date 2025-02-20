@@ -49,25 +49,25 @@
   ```dockerfile
   # 使用 Node.js 18 Alpine 镜像，轻量且适合开发
   FROM node:18-alpine
-  
+
   # 设置容器内的工作目录
   WORKDIR /app
-  
+
   # 复制 Workspaces 根目录的依赖文件
   COPY package.json yarn.lock ./
   COPY frontend/ ./frontend/
   COPY backend/ ./backend/
   COPY docs/ ./docs/
-  
+
   # 安装所有依赖，支持 Monorepo 结构
   RUN yarn install
-  
+
   # 切换到前端子目录运行命令
   WORKDIR /app/frontend
-  
+
   # 暴露 Vite 的默认开发端口
   EXPOSE 5173
-  
+
   # 启动 Vite 开发服务器，--host 允许外部访问
   CMD ["yarn", "dev", "--host"]
   ```
@@ -83,25 +83,25 @@
   ```dockerfile
   # 使用 Node.js 18 Alpine 镜像，轻量且适合开发
   FROM node:18-alpine
-  
+
   # 设置容器内的工作目录
   WORKDIR /app
-  
+
   # 复制 Workspaces 根目录的依赖文件
   COPY package.json yarn.lock ./
   COPY frontend/ ./frontend/
   COPY backend/ ./backend/
   COPY docs/ ./docs/
-  
+
   # 安装所有依赖，支持 Monorepo 结构
   RUN yarn install
-  
+
   # 切换到后端子目录运行命令
   WORKDIR /app/backend
-  
+
   # 暴露 Express 的默认端口
   EXPOSE 3000
-  
+
   # 启动 nodemon 开发服务器，支持热重载
   CMD ["yarn", "dev"]
   ```
@@ -121,26 +121,26 @@
         context: .
         dockerfile: frontend/Dockerfile
       ports:
-        - "5173:5173"
+        - '5173:5173'
       volumes:
         - ./frontend:/app/frontend
         - /app/frontend/node_modules
       environment:
         - NODE_ENV=development
-  
+
   backend:
-      build:
-        context: .
-        dockerfile: backend/Dockerfile
-      ports:
-        - "3000:3000"
-      volumes:
-        - ./backend:/app/backend
-        - /app/backend/node_modules
-      environment:
-        - NODE_ENV=development
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./backend:/app/backend
+      - /app/backend/node_modules
+    environment:
+      - NODE_ENV=development
   ```
-  
+
 > **说明**：构建上下文为根目录，挂载子目录以支持热更新。
 
 ## 步骤 5：验证 Docker 容器运行
@@ -156,9 +156,11 @@
   > **说明**：`--build` 确保重新构建镜像。
 
 - 验证后端：
+
   - 访问 `http://localhost:3000/health`，应返回 `{ "status": "ok", "timestamp": "..." }`。
 
 - 验证前端：
+
   - 访问 `http://localhost:5173`，页面应显示 **Backend Status: ok**。
   - 若显示异常（如 “Error...”），检查后端是否运行或网络连接。
 

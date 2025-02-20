@@ -44,12 +44,12 @@
       "format": "prettier --write .",
       "lint": "eslint .",
       "test": "jest"
-    },
+    }
   }
   ```
-  
+
   > **说明**：`"type": "module"` 启用 ES6，添加完整开发脚本。
-  
+
 - 创建基础文件结构和健康检查 API：
 
   ```bash
@@ -75,12 +75,12 @@
     ```bash
     cat <<EOF > src/index.js
     import app from './app.js'
-    
+
     const port = 3000
     const server = app.listen(port, () => {
       console.log(\`Server running at http://localhost:\${port}\`)
     })
-    
+
     export default server
     EOF
     ```
@@ -181,7 +181,7 @@
   ```bash
   echo "import request from 'supertest'
   import app from './app.js'
-  
+
   describe('Health API', () => {
     it('should return status ok', async () => {
       const res = await request(app).get('/health')

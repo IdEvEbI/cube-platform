@@ -23,9 +23,9 @@
   ```vue
   <script setup>
   import { ref, onMounted } from 'vue'
-  
+
   const status = ref('Loading...')
-  
+
   onMounted(async () => {
     try {
       const response = await fetch('http://localhost:3000/health')
@@ -36,14 +36,14 @@
     }
   })
   </script>
-  
+
   <template>
     <div>
       <h1>Cube Platform</h1>
       <p>Backend Status: {{ status }}</p>
     </div>
   </template>
-  
+
   <style>
   /* 可选样式，后续扩展 */
   </style>
@@ -74,15 +74,15 @@
   ```javascript
   import express from 'express'
   import cors from 'cors'
-  
+
   const app = express()
-  
+
   app.use(cors())
-  
+
   app.get('/health', (req, res) => {
     res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() })
   })
-  
+
   export default app
   ```
 
