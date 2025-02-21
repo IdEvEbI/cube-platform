@@ -35,13 +35,13 @@ jobs:
         # 运行前端和后端单元测试
 
       - name: Build Docker images
-        run: docker-compose up -d --build
-        # 构建并启动前后端容器
+        run: docker compose up -d --build
+        # 构建并启动前后端容器，使用 v2 语法
 
       - name: Verify backend health
         run: curl --retry 10 --retry-delay 5 http://localhost:3000/health
         # 检查后端 API 是否正常
 
       - name: Stop containers
-        run: docker-compose down
+        run: docker compose down
         # 清理测试环境

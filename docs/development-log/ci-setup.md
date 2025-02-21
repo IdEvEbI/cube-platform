@@ -10,7 +10,7 @@
 
 > **目的**：适配 ESLint 9.x 和 Prettier，限制检查范围为 `frontend` 和 `backend`。
 
-- 修改根目录 `package.json`，确保一致性：
+- 修改根目录 `package.json`，更新脚本和依赖：
 
   ```json
   {
@@ -43,7 +43,7 @@
   }
   ```
 
-- 修改根目录 `eslint.config.js`，修复忽略规则：
+- 修改根目录 `eslint.config.js`，确保忽略规则生效：
 
   ```javascript
   import prettier from 'eslint-plugin-prettier'
@@ -54,11 +54,11 @@
   export default [
     {
       ignores: [
-        'docs/**/*',
-        '**/.vitepress/**/*',
-        '**/coverage/**/*',
-        '**/dist/**/*',
-        '**/node_modules/**/*'
+        'docs/**',
+        '.vitepress/**',
+        'coverage/**',
+        'dist/**',
+        'node_modules/**'
       ]
     },
     {
@@ -80,8 +80,6 @@
   ]
   ```
 
-  > **说明**：将 `ignores` 移至单独对象，确保全局生效。
-
 - 创建或确认根目录 `.prettierrc`，内容如下：
 
   ```json
@@ -95,43 +93,24 @@
 - 创建根目录 `.prettierignore`，内容如下：
 
   ```gitignore
-  docs/**/*
-  **/.vitepress/**/*
-  **/coverage/**/*
-  **/dist/**/*
-  **/node_modules/**/*
+  docs/**
+  .vitepress/**
+  coverage/**
+  dist/**
+  node_modules/**
   ```
 
-- 清理 ESLint 缓存并安装依赖：
+- 清理缓存并安装依赖：
 
   ```bash
   yarn install
-  yeslint . --cache --fix
+  yarn lint . --cache --fix
   yarn format
   ```
 
   > **说明**：清理缓存并格式化，确保规则生效。
 
-## 步骤 2：为 docs 添加占位测试脚本（可选）
-
-> **目的**：避免 `docs` 子项目测试失败，若跳过 `docs` 测试可忽略。
-
-- 修改 `docs/package.json`（若存在，或新建），添加：
-
-  ```json
-  {
-    "name": "docs",
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-      "test": "echo 'No tests defined for docs' && exit 0"
-    }
-  }
-  ```
-
-  > **说明**：占位脚本避免报错，已跳过 `docs` 测试，可忽略此步。
-
-## 步骤 3：创建 GitHub Actions 工作流
+## 步骤 2：创建 GitHub Actions 工作流
 
 > **目的**：定义 CI 流水线，运行代码检查和测试。
 
@@ -175,21 +154,21 @@
           # 运行前端和后端单元测试
   
         - name: Build Docker images
-          run: docker-compose up -d --build
-          # 构建并启动前后端容器
+          run: docker compose up -d --build
+          # 构建并启动前后端容器，使用 v2 语法
   
         - name: Verify backend health
           run: curl --retry 10 --retry-delay 5 http://localhost:3000/health
           # 检查后端 API 是否正常
   
         - name: Stop containers
-          run: docker-compose down
+          run: docker compose down
           # 清理测试环境
   ```
 
-  > **说明**：同步格式化和 Lint 的范围限制。
+  > **说明**：使用 `docker compose` 替换 `docker-compose`，适配 GitHub Actions。
 
-## 步骤 4：验证本地 CI 流程
+## 步骤 3：验证本地 CI 流程
 
 > **目的**：确保 CI 配置在本地可运行，避免推送后失败。
 
@@ -217,14 +196,14 @@
 - 构建并验证 Docker 容器：
 
   ```bash
-  docker-compose up -d --build
+  docker compose up -d --build
   curl http://localhost:3000/health
-  docker-compose down
+  docker compose down
   ```
 
-  > **说明**：模拟 CI 步骤，验证后端健康检查。
+  > **说明**：使用 v2 语法，模拟 CI 步骤。
 
-## 步骤 5：提交 CI 配置至 GitHub
+## 步骤 4：提交 CI 配置至 GitHub
 
 > **目的**：将 CI 配置推送至 `dev` 分支，启用自动化流程。
 
@@ -232,13 +211,13 @@
 
   ```bash
   git add .github/workflows/ci.yml eslint.config.js .prettierrc .prettierignore package.json yarn.lock .gitignore
-  git commit -m "feat(ci): fix eslint ignores and remove es5 rule error"
+  git commit -m "feat(ci): fix docker compose syntax for github actions"
   git push origin dev
   ```
 
-  > **说明**：提交更新后的配置，触发 GitHub Actions。
+  > **说明**：提交更新后的配置，若推送失败，见下方网络排查。
 
-## 步骤 6：合并 dev 分支到 main 分支
+## 步骤 5：合并 dev 分支到 main 分支
 
 > **目的**：将经过验证的 `dev` 分支代码合并到 `main` 分支，完成开发全流程。
 
@@ -279,6 +258,6 @@
 - [ ] 本地运行 `yarn format`，仅格式化 `frontend` 和 `backend` 文件。
 - [ ] 本地运行 `yarn lint`，无代码规范错误或警告。
 - [ ] 本地运行 `yarn test`，前端和后端测试通过。
-- [ ] 本地运行 `docker-compose up -d --build`，访问 `http://localhost:3000/health` 返回正常。
+- [ ] 本地运行 `docker compose up -d --build`，访问 `http://localhost:3000/health` 返回正常。
 - [ ] 推送至 `dev` 分支后，GitHub Actions 工作流成功运行。
 - [ ] PR 创建并合并至 `main` 分支，`main` 分支包含最新代码。

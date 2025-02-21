@@ -6,11 +6,11 @@ import vueParser from 'vue-eslint-parser'
 export default [
   {
     ignores: [
-      'docs/**/*',
-      '**/.vitepress/**/*',
-      '**/coverage/**/*',
-      '**/dist/**/*',
-      '**/node_modules/**/*',
+      'docs/**',
+      '.vitepress/**',
+      'coverage/**',
+      'dist/**',
+      'node_modules/**',
     ],
   },
   {
