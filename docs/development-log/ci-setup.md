@@ -262,14 +262,14 @@
 
   - 或通过 GitHub 界面：
     1. 访问 `https://github.com/IdEvEbI/cube-platform/pulls`。
-    2. 点击 “New pull request”。
+    2. 点击 **New pull request**。
     3. 选择 `base: main` 和 `compare: dev`。
-    4. 输入标题（如 “Merge dev into main: CI/CD setup complete”）和描述。
-    5. 点击 “Create pull request”。
+    4. 输入标题（如 **Merge dev into main: CI/CD setup complete**）和描述。
+    5. 点击 **Create pull request**。
 
 - 合并 PR：
   - 在 GitHub PR 页面，检查 CI 工作流是否通过。
-  - 点击 “Merge pull request” 并确认合并。
+  - 点击 **Merge pull request** 并确认合并。
   - 删除 `dev` 分支（可选）。
 
   > **说明**：合并后，`main` 分支包含完整开发环境。
