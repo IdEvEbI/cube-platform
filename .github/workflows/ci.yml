@@ -36,7 +36,11 @@ jobs:
 
       - name: Build Docker images
         run: docker compose up -d --build
-        # 构建并启动前后端容器，使用 v2 语法
+        # 构建并启动前后端容器
+
+      - name: Wait for backend to be ready
+        run: sleep 10
+        # 等待 10 秒，确保后端启动完成
 
       - name: Verify backend health
         run: curl --retry 10 --retry-delay 5 http://localhost:3000/health

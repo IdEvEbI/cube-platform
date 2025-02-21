@@ -131,42 +131,46 @@
           name: Checkout code
           with:
             fetch-depth: 0
-  
+
         - uses: actions/setup-node@v4
           name: Setup Node.js
           with:
             node-version: '18'
-  
+
         - name: Install dependencies
           run: yarn install --frozen-lockfile
           # 确保依赖与 yarn.lock 一致
-  
+
         - name: Format code
           run: yarn format
           # 格式化前端和后端代码
-  
+
         - name: Lint code
           run: yarn lint
           # 检查前端和后端代码规范
-  
+
         - name: Run tests
           run: yarn test
           # 运行前端和后端单元测试
-  
+
         - name: Build Docker images
           run: docker compose up -d --build
-          # 构建并启动前后端容器，使用 v2 语法
-  
+          # 构建并启动前后端容器
+
+        - name: Wait for backend to be ready
+          run: sleep 10
+          # 等待 10 秒，确保后端启动完成
+
         - name: Verify backend health
           run: curl --retry 10 --retry-delay 5 http://localhost:3000/health
           # 检查后端 API 是否正常
-  
+
         - name: Stop containers
           run: docker compose down
           # 清理测试环境
   ```
 
-  > **说明**：使用 `docker compose` 替换 `docker-compose`，适配 GitHub Actions。
+  > **说明**：添加 **sleep 10** 等待后端启动，适配 CI 环境。
 
 ## 步骤 3：验证本地 CI 流程
 
@@ -191,17 +195,18 @@
   yarn test
   ```
 
-  > **说明**：仅运行 `frontend` 和 `backend` 测试。
+  > **说明**：仅运行 **frontend** 和 **backend** 测试。
 
 - 构建并验证 Docker 容器：
 
   ```bash
   docker compose up -d --build
+  sleep 10
   curl http://localhost:3000/health
   docker compose down
   ```
 
-  > **说明**：使用 v2 语法，模拟 CI 步骤。
+  > **说明**：添加 **sleep 10**，确保后端就绪。
 
 ## 步骤 4：提交 CI 配置至 GitHub
 
@@ -210,12 +215,12 @@
 - 提交更改：
 
   ```bash
-  git add .github/workflows/ci.yml eslint.config.js .prettierrc .prettierignore package.json yarn.lock .gitignore
-  git commit -m "feat(ci): fix docker compose syntax for github actions"
+  git add .github/workflows/ci.yml eslint.config.js .prettierrc .prettierignore package.json yarn.lock
+  git commit -m "feat(ci): add wait step for backend health check"
   git push origin dev
   ```
 
-  > **说明**：提交更新后的配置，若推送失败，见下方网络排查。
+  > **说明**：提交更新后的配置，触发 GitHub Actions。
 
 ## 步骤 5：合并 dev 分支到 main 分支
 
@@ -240,7 +245,7 @@
     ```
 
   - 或通过 GitHub 界面：
-    1. 访问 `https://github.com/IdEvEbI/cube-platform/pulls`。
+    1. 访问 <https://github.com/IdEvEbI/cube-platform/pulls。>
     2. 点击 **New pull request**。
     3. 选择 `base: main` 和 `compare: dev`。
     4. 输入标题（如 **Merge dev into main: CI/CD setup complete**）和描述。
@@ -255,9 +260,9 @@
 
 ## 验证清单
 
-- [ ] 本地运行 `yarn format`，仅格式化 `frontend` 和 `backend` 文件。
+- [ ] 本地运行 `yarn format`，仅格式化 **frontend** 和 **backend** 文件。
 - [ ] 本地运行 `yarn lint`，无代码规范错误或警告。
-- [ ] 本地运行 `yarn test`，前端和后端测试通过。
-- [ ] 本地运行 `docker compose up -d --build`，访问 `http://localhost:3000/health` 返回正常。
+- [ ] 本地运行 `yarn test`，**frontend** 和 **backend** 测试通过。
+- [ ] 本地运行 `docker compose up -d --build`，访问 <http://localhost:3000/health> 返回正常。
 - [ ] 推送至 `dev` 分支后，GitHub Actions 工作流成功运行。
 - [ ] PR 创建并合并至 `main` 分支，`main` 分支包含最新代码。
