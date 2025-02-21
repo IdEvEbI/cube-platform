@@ -1,0 +1,51 @@
+name: CI
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout code
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        name: Setup Node.js
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        # 确保依赖与 yarn.lock 一致
+
+      - name: Format code
+        run: yarn format
+        # 格式化前端和后端代码
+
+      - name: Lint code
+        run: yarn lint
+        # 检查前端和后端代码规范
+
+      - name: Run tests
+        run: yarn test
+        # 运行前端和后端单元测试
+
+      - name: Build Docker images
+        run: docker compose up -d --build
+        # 构建并启动前后端容器
+
+      - name: Wait for backend to be ready
+        run: sleep 10
+        # 等待 10 秒，确保后端启动完成
+
+      - name: Verify backend health
+        run: curl --retry 10 --retry-delay 5 http://localhost:3000/health
+        # 检查后端 API 是否正常
+
+      - name: Stop containers
+        run: docker compose down
+        # 清理测试环境

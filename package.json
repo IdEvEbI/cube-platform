@@ -1,0 +1,32 @@
+{
+  "name": "cube-platform",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "docs"
+  ],
+  "scripts": {
+    "dev:frontend": "yarn workspace frontend dev",
+    "dev:backend": "yarn workspace backend dev",
+    "dev:docs": "yarn workspace docs dev",
+    "format": "prettier --write \"frontend/**/*.{js,mjs,vue}\" \"backend/**/*.{js,mjs}\"",
+    "lint": "eslint .",
+    "test": "yarn workspace frontend test && yarn workspace backend test"
+  },
+  "repository": "git@github.com:IdEvEbI/cube-platform.git",
+  "author": "IdevebI <idevebi@163.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "vite": "^6.1.1",
+    "eslint": "^9.20.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-vue": "^9.32.0",
+    "vue-eslint-parser": "^9.4.3",
+    "prettier": "^3.5.1"
+  }
+}
