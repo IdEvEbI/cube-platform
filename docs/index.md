@@ -15,6 +15,10 @@
 5. [Docker 配置](./development-log/docker-setup.md)
 6. [CI/CD 配置](./development-log/ci-setup.md)
 
+### 2. 魔方应用的核心功能
+
+1. [魔方 3D 展示功能开发](./development-log/magic-cube-3d-setup.md)
+
 ## 参考文档
 
 1. [Markdown 文档编写指南](./markdown-doc-guide.md)
